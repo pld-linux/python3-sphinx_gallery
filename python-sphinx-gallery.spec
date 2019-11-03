@@ -8,7 +8,7 @@ Summary:	Sphinx extension to automatically generate an examples gallery
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do automatycznego generowania galerii przykładów
 Name:		python-sphinx-gallery
 Version:	0.4.0
-Release:	3
+Release:	4
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-gallery/
@@ -95,12 +95,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %py_postclean
 %{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/sphinx_gallery/tests
-
-# ensure tools come from python3 package
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/*
 %endif
 
 %if %{with python3}
+# ensure tools come from python3 package
+%{__rm} -r $RPM_BUILD_ROOT%{_bindir}
 %py3_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinx_gallery/tests
@@ -113,6 +112,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.rst LICENSE README.rst
+%if %{without python3}
+%attr(755,root,root) %{_bindir}/copy_sphinxgallery.sh
+%attr(755,root,root) %{_bindir}/sphx_glr_python_to_jupyter.py
+%endif
 %{py_sitescriptdir}/sphinx_gallery
 %{py_sitescriptdir}/sphinx_gallery-%{version}-py*.egg-info
 %endif
