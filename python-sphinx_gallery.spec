@@ -6,9 +6,10 @@
 
 Summary:	Sphinx extension to automatically generate an examples gallery
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do automatycznego generowania galerii przykładów
-Name:		python-sphinx-gallery
+Name:		python-sphinx_gallery
+# NOTE: keep 0.4.x here; 0.5+ don't support python 2
 Version:	0.4.0
-Release:	4
+Release:	5
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-gallery/
@@ -28,6 +29,8 @@ BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 Requires:	python-modules >= 1:2.5
+Provides:	python-sphinx-gallery = %{version}-%{release}
+Obsoletes:	python-sphinx-gallery < 0.4.0-5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,20 +48,22 @@ umieszczające go w galerii przykładów.
 Zostało wyciągnięte z projektu scikit-learn z myślą o używaniu jako
 niezależne rozszerzenie ogólnego przeznaczenia.
 
-%package -n python3-sphinx-gallery
+%package -n python3-sphinx_gallery
 Summary:	Sphinx extension to automatically generate an examples gallery
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do automatycznego generowania galerii przykładów
 Group:		Libraries/Python
 Requires:	python3-modules >= 1:3.2
+Provides:	python3-sphinx-gallery = %{version}-%{release}
+Obsoletes:	python3-sphinx-gallery < 0.4.0-5
 
-%description -n python3-sphinx-gallery
+%description -n python3-sphinx_gallery
 A Sphinx extension that builds an HTML version of any Python script
 and puts it into an examples gallery.
   
 It is extracted from the scikit-learn project and aims to be an
 independent general purpose extension.
 
-%description -n python3-sphinx-gallery -l pl.UTF-8
+%description -n python3-sphinx_gallery -l pl.UTF-8
 Rozszerzenie Sphinksa tworzące wersję HTML dowolnego skryptu Pythona i
 umieszczające go w galerii przykładów.
 
@@ -121,7 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python3}
-%files -n python3-sphinx-gallery
+%files -n python3-sphinx_gallery
 %defattr(644,root,root,755)
 %doc CHANGES.rst LICENSE README.rst
 %attr(755,root,root) %{_bindir}/copy_sphinxgallery.sh
