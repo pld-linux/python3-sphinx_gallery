@@ -49,8 +49,9 @@ niezależne rozszerzenie ogólnego przeznaczenia.
 %py3_build
 
 %if %{with tests}
+# test_embed_code_links_get_data uses network
 PYTHONPATH=$(pwd)/build-3/lib \
-pytest-3 sphinx_gallery/tests
+pytest-3 sphinx_gallery/tests -k 'not test_embed_code_links_get_data'
 %endif
 
 %install
