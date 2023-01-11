@@ -50,12 +50,12 @@ niezależne rozszerzenie ogólnego przeznaczenia.
 %py3_build
 
 %if %{with tests}
-# test_embed_code_links_get_data uses network
+# test_embed_code_links_get_data, test_run_sphinx use network
 # test_embed_links_and_styles is too dependent on sphinx version?
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTEST_PLUGINS="pytest_cov.plugin" \
 PYTHONPATH=$(pwd)/build-3/lib \
-%{__python3} -m pytest sphinx_gallery/tests -k 'not test_embed_code_links_get_data and not test_embed_links_and_styles'
+%{__python3} -m pytest sphinx_gallery/tests -k 'not test_embed_code_links_get_data and not test_embed_links_and_styles and not test_run_sphinx'
 %endif
 
 %install
