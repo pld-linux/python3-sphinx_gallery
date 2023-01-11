@@ -5,24 +5,25 @@
 Summary:	Sphinx extension to automatically generate an examples gallery
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do automatycznego generowania galerii przykładów
 Name:		python3-sphinx_gallery
-Version:	0.7.0
-Release:	5
+Version:	0.11.0
+Release:	1
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-gallery/
 Source0:	https://files.pythonhosted.org/packages/source/s/sphinx-gallery/sphinx-gallery-%{version}.tar.gz
-# Source0-md5:	bb9944c614810551c424798556ba8230
+# Source0-md5:	c3adbd7c2e2315a72f9c8056feec2d7c
 URL:		https://github.com/sphinx-gallery/sphinx-gallery
-BuildRequires:	python3-modules >= 1:3.5
+BuildRequires:	python3-modules >= 1:3.7
 BuildRequires:	python3-setuptools
 %if %{with tests}
+BuildRequires:	ffmpeg
 BuildRequires:	python3-Sphinx >= 1.8.3
 BuildRequires:	python3-joblib
 BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python3-modules >= 1:3.5
+Requires:	python3-modules >= 1:3.7
 Provides:	python3-sphinx-gallery = %{version}-%{release}
 Obsoletes:	python3-sphinx-gallery < 0.4.0-5
 BuildArch:	noarch
@@ -50,8 +51,11 @@ niezależne rozszerzenie ogólnego przeznaczenia.
 
 %if %{with tests}
 # test_embed_code_links_get_data uses network
+# test_embed_links_and_styles is too dependent on sphinx version?
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS="pytest_cov.plugin" \
 PYTHONPATH=$(pwd)/build-3/lib \
-pytest-3 sphinx_gallery/tests -k 'not test_embed_code_links_get_data'
+%{__python3} -m pytest sphinx_gallery/tests -k 'not test_embed_code_links_get_data and not test_embed_links_and_styles'
 %endif
 
 %install
