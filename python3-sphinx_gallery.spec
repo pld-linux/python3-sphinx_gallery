@@ -5,16 +5,17 @@
 Summary:	Sphinx extension to automatically generate an examples gallery
 Summary(pl.UTF-8):	Rozszerzenie Sphinksa do automatycznego generowania galerii przykładów
 Name:		python3-sphinx_gallery
-Version:	0.11.0
-Release:	3
+Version:	0.19.0
+Release:	1
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/sphinx-gallery/
-Source0:	https://files.pythonhosted.org/packages/source/s/sphinx-gallery/sphinx-gallery-%{version}.tar.gz
-# Source0-md5:	c3adbd7c2e2315a72f9c8056feec2d7c
+Source0:	https://files.pythonhosted.org/packages/source/s/sphinx-gallery/sphinx_gallery-%{version}.tar.gz
+# Source0-md5:	bef91dd3e20de28ab4358220d449ca1b
 URL:		https://github.com/sphinx-gallery/sphinx-gallery
+BuildRequires:	python3-build
+BuildRequires:	python3-installer
 BuildRequires:	python3-modules >= 1:3.7
-BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	ffmpeg
 BuildRequires:	python3-Sphinx >= 1.8.3
@@ -44,10 +45,10 @@ Zostało wyciągnięte z projektu scikit-learn z myślą o używaniu jako
 niezależne rozszerzenie ogólnego przeznaczenia.
 
 %prep
-%setup -q -n sphinx-gallery-%{version}
+%setup -q -n sphinx_gallery-%{version}
 
 %build
-%py3_build
+%py3_build_pyproject
 
 %if %{with tests}
 # test_embed_code_links_get_data, test_run_sphinx use network
@@ -61,7 +62,7 @@ PYTHONPATH=$(pwd)/build-3/lib \
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%py3_install
+%py3_install_pyproject
 
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitescriptdir}/sphinx_gallery/tests
 
@@ -71,7 +72,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.rst LICENSE README.rst
-%attr(755,root,root) %{_bindir}/copy_sphinxgallery.sh
-%attr(755,root,root) %{_bindir}/sphx_glr_python_to_jupyter.py
+%attr(755,root,root) %{_bindir}/sphinx_gallery_py2jupyter
 %{py3_sitescriptdir}/sphinx_gallery
-%{py3_sitescriptdir}/sphinx_gallery-%{version}-py*.egg-info
+%{py3_sitescriptdir}/sphinx_gallery-%{version}.dist-info
