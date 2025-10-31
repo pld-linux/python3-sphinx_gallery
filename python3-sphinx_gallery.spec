@@ -15,16 +15,20 @@ Source0:	https://files.pythonhosted.org/packages/source/s/sphinx-gallery/sphinx_
 URL:		https://github.com/sphinx-gallery/sphinx-gallery
 BuildRequires:	python3-build
 BuildRequires:	python3-installer
-BuildRequires:	python3-modules >= 1:3.7
+BuildRequires:	python3-modules >= 1:3.8
+BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools_scm
 %if %{with tests}
 BuildRequires:	ffmpeg
-BuildRequires:	python3-Sphinx >= 1.8.3
+BuildRequires:	python3-Sphinx >= 5
 BuildRequires:	python3-joblib
+BuildRequires:	python3-matplotlib
+BuildRequires:	python3-pillow
 BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python3-modules >= 1:3.7
+Requires:	python3-modules >= 1:3.8
 Provides:	python3-sphinx-gallery = %{version}-%{release}
 Obsoletes:	python3-sphinx-gallery < 0.4.0-5
 BuildArch:	noarch
